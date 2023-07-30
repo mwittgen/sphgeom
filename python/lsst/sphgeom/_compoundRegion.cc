@@ -43,7 +43,7 @@ py::str _repr(const char *format, CompoundRegion const &self) {
 }  // namespace
 
 template <>
-void defineClass(py::class_<CompoundRegion, std::unique_ptr<CompoundRegion>, Region> &cls) {
+void defineClass(py::class_<CompoundRegion, Region> &cls) {
     cls.def(
         "cloneOperand",
         [](CompoundRegion const &self, std::ptrdiff_t n) {
@@ -53,7 +53,7 @@ void defineClass(py::class_<CompoundRegion, std::unique_ptr<CompoundRegion>, Reg
 }
 
 template <>
-void defineClass(py::class_<UnionRegion, std::unique_ptr<UnionRegion>, CompoundRegion> &cls) {
+void defineClass(py::class_<UnionRegion, CompoundRegion> &cls) {
     cls.attr("TYPE_CODE") = py::int_(UnionRegion::TYPE_CODE);
     cls.def(py::init<Region const &, Region const &>());
     cls.def(py::pickle(&python::encode, &python::decode<UnionRegion>));
@@ -61,7 +61,7 @@ void defineClass(py::class_<UnionRegion, std::unique_ptr<UnionRegion>, CompoundR
 }
 
 template <>
-void defineClass(py::class_<IntersectionRegion, std::unique_ptr<IntersectionRegion>, CompoundRegion> &cls) {
+void defineClass(py::class_<IntersectionRegion, CompoundRegion> &cls) {
     cls.attr("TYPE_CODE") = py::int_(IntersectionRegion::TYPE_CODE);
     cls.def(py::init<Region const &, Region const &>());
     cls.def(py::pickle(&python::encode, &python::decode<IntersectionRegion>));
