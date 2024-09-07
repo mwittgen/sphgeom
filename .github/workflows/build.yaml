@@ -110,17 +110,14 @@ jobs:
     env:
       CIBW_BUILD: "cp3{8,9,10,11,12,13}-{manylinux_x86_64,manylinux_aarch64,macosx_arm64,macosx_x86_64}"
       CIBW_ARCHS_MACOS: "x86_64 arm64"
-      # use line below to enable aarch64 builds
-      # CIBW_ARCHS_LINUX: "auto aarch64"
-      CIBW_ARCHS_LINUX: "auto"
+      CIBW_ARCHS_LINUX: "auto aarch64"
 
     steps:
-      # uncomment when building aarch64
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v2
-      #   if: runner.os == 'Linux'
-      #   with:
-      #     platforms: arm64
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        if: runner.os == 'Linux'
+        with:
+          platforms: arm64
 
       - uses: actions/checkout@v4
         with:
