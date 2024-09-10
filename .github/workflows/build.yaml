@@ -85,7 +85,7 @@ jobs:
 
           # Extract the current tag and its SHA
           current_tag=${GITHUB_REF#refs/tags/}
-          echo "Current tag: ${current_tag}
+          echo "Current tag: ${current_tag}"
           current_sha=$(git rev-list -1 "${current_tag}") || echo "invalid"
           echo "Current sha: ${current_sha}"
           # Count occurrences of the current SHA in the weekly SHA list
